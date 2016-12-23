@@ -1,0 +1,57 @@
+#!/bin/bash
+if [ "$#" -ne 2 ]; then
+    echo "need parameters: filePath testTimes"
+    exit 1
+fi
+
+echo "---- install pkg ----"
+sudo apt-get install bc
+
+baseDir=`realpath .`
+demoDir="${baseDir}"/demo
+
+if [ ! -d "${demoDir}" ]; then
+  mkdir "${demoDir}" 
+fi
+
+cd "${baseDir}"/cryptopp565
+sudo make install
+cd  "${baseDir}"
+
+echo "---- building src ----"
+g++ "${baseDir}"/src/main.cpp -l cryptopp
+echo "---- build done ----"
+
+# run 
+demoFile=$1
+testTimes=$2
+logDir="${demoDir}/log"
+if [ ! -d "${logDir}" ]; then
+  mkdir "${logDir}"
+else
+  rm "${logDir}"/*
+fi
+
+for ALGO in DES AES RSA DH SHA512 MD5
+do
+  if [ "${ALGO}" == "DES" ] || [ "${ALGO}" == "AES" ]; then
+    for MODE in CBC OFB
+    do
+      echo "---- CryptoPP ${ALGO} ${MODE} ----"
+      for (( i=1; i<=${testTimes}; i++ ))
+      do
+        echo "-- run test ${i} --"
+        ./a.out "${demoFile}" "${ALGO}" "${MODE}" > "${logDir}/CryptoPP_${ALGO}_${MODE}_${i}"
+      done
+      echo ""
+    done
+  else
+    echo "---- run CryptoPP ${LIB} ${ALGO} ----"
+    for (( i=1; i<=${testTimes}; i++ ))
+    do
+      echo "-- run test ${i} --"
+      ./a.out "${demoFile}" "${ALGO}" > "${logDir}/CryptoPP_${ALGO}_${i}"
+    done
+    echo ""
+  fi
+done

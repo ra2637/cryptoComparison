@@ -1,0 +1,178 @@
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c cryptlib.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c cpu.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c integer.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c gost.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c hex.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c randpool.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c fipstest.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c sharkbox.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c blowfish.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c base32.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c files.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c md4.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c gzip.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c fips140.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c eprecomp.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c dsa.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c polynomi.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c filters.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c vmac.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c queue.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c serpent.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rc5.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c mars.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c xtrcrypt.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c gf256.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c cmac.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c authenc.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c des.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c default.cpp
+default.cpp: In constructor 'CryptoPP::DefaultEncryptorWithMAC::DefaultEncryptorWithMAC(const char*, CryptoPP::BufferedTransformation*)':
+default.cpp:220:39: warning: 'DefaultEncryptor' is deprecated: DefaultEncryptor will be changing in the near future because the algorithms are no longer secure [-Wdeprecated-declarations]
+  SetFilter(new HashFilter(*m_mac, new DefaultEncryptor(passphrase), true));
+                                       ^
+In file included from default.cpp:13:0:
+default.h:29:7: note: declared here
+ class DefaultEncryptor : public ProxyFilter
+       ^
+default.cpp: In constructor 'CryptoPP::DefaultEncryptorWithMAC::DefaultEncryptorWithMAC(const byte*, size_t, CryptoPP::BufferedTransformation*)':
+default.cpp:227:39: warning: 'DefaultEncryptor' is deprecated: DefaultEncryptor will be changing in the near future because the algorithms are no longer secure [-Wdeprecated-declarations]
+  SetFilter(new HashFilter(*m_mac, new DefaultEncryptor(passphrase, passphraseLength), true));
+                                       ^
+In file included from default.cpp:13:0:
+default.h:29:7: note: declared here
+ class DefaultEncryptor : public ProxyFilter
+       ^
+default.cpp: In constructor 'CryptoPP::DefaultDecryptorWithMAC::DefaultDecryptorWithMAC(const char*, CryptoPP::BufferedTransformation*, bool)':
+default.cpp:243:16: warning: 'DefaultDecryptor' is deprecated: DefaultDecryptor will be changing in the near future because the algorithms are no longer secure [-Wdeprecated-declarations]
+  SetFilter(new DefaultDecryptor(passphrase, m_hashVerifier=new HashVerifier(*m_mac, NULL, HashVerifier::PUT_MESSAGE), throwException));
+                ^
+In file included from default.cpp:13:0:
+default.h:57:7: note: declared here
+ class DefaultDecryptor : public ProxyFilter
+       ^
+default.cpp: In constructor 'CryptoPP::DefaultDecryptorWithMAC::DefaultDecryptorWithMAC(const byte*, size_t, CryptoPP::BufferedTransformation*, bool)':
+default.cpp:251:16: warning: 'DefaultDecryptor' is deprecated: DefaultDecryptor will be changing in the near future because the algorithms are no longer secure [-Wdeprecated-declarations]
+  SetFilter(new DefaultDecryptor(passphrase, passphraseLength, m_hashVerifier=new HashVerifier(*m_mac, NULL, HashVerifier::PUT_MESSAGE), throwException));
+                ^
+In file included from default.cpp:13:0:
+default.h:57:7: note: declared here
+ class DefaultDecryptor : public ProxyFilter
+       ^
+default.cpp: In member function 'CryptoPP::DefaultDecryptor::State CryptoPP::DefaultDecryptorWithMAC::CurrentState() const':
+default.cpp:256:44: warning: 'DefaultDecryptor' is deprecated: DefaultDecryptor will be changing in the near future because the algorithms are no longer secure [-Wdeprecated-declarations]
+  return static_cast<const DefaultDecryptor *>(m_filter.get())->CurrentState();
+                                            ^
+In file included from default.cpp:13:0:
+default.h:57:7: note: declared here
+ class DefaultDecryptor : public ProxyFilter
+       ^
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c idea.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c gcm.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c squaretb.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c pkcspad.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c emsa2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c sha.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c blake2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c eax.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rijndael.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c square.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c dessp.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c algparam.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c crc.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c elgamal.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c dh2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c oaep.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c ecp.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c hmac.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c marss.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c adler32.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c wait.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c iterhash.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c safer.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c dh.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c wake.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rc2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c chacha.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c gf2n.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c shark.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c seed.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c shacal2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c tea.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rdrand.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c ripemd.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c camellia.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c pubkey.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c trdlocal.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c salsa.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c seal.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c luc.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c hrtimer.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c ttmac.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c mqv.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c md2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c ccm.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c bfinit.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c whrlpool.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c asn.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c blumshub.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rng.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c cast.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c tiger.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c zlib.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c channels.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c zinflate.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c pssr.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c misc.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c mqueue.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c sha3.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rc6.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c base64.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c basecode.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c algebra.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c ec2n.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c dll.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c gfpcrypt.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c esign.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c strciphr.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c casts.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c modes.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c panama.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c nbtheory.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c md5.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c socketft.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c ida.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c twofish.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c tigertab.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c eccrypto.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c cbcmac.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rdtables.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rsa.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c tftables.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rw.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c sosemanuk.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c 3way.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c gf2_32.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c network.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c rabin.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c keccak.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c xtr.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c zdeflate.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c skipjack.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c osrng.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c arc4.cpp
+ar r libcryptopp.a cryptlib.o cpu.o integer.o gost.o hex.o randpool.o fipstest.o sharkbox.o blowfish.o base32.o files.o md4.o gzip.o fips140.o eprecomp.o dsa.o polynomi.o filters.o vmac.o queue.o serpent.o rc5.o mars.o xtrcrypt.o gf256.o cmac.o authenc.o des.o default.o idea.o gcm.o squaretb.o pkcspad.o emsa2.o sha.o blake2.o eax.o rijndael.o square.o dessp.o algparam.o crc.o elgamal.o dh2.o oaep.o ecp.o hmac.o marss.o adler32.o wait.o iterhash.o safer.o dh.o wake.o rc2.o chacha.o gf2n.o shark.o seed.o shacal2.o tea.o rdrand.o ripemd.o camellia.o pubkey.o trdlocal.o salsa.o seal.o luc.o hrtimer.o ttmac.o mqv.o md2.o ccm.o bfinit.o whrlpool.o asn.o blumshub.o rng.o cast.o tiger.o zlib.o channels.o zinflate.o pssr.o misc.o mqueue.o sha3.o rc6.o base64.o basecode.o algebra.o ec2n.o dll.o gfpcrypt.o esign.o strciphr.o casts.o modes.o panama.o nbtheory.o md5.o socketft.o ida.o twofish.o tigertab.o eccrypto.o cbcmac.o rdtables.o rsa.o tftables.o rw.o sosemanuk.o 3way.o gf2_32.o network.o rabin.o keccak.o xtr.o zdeflate.o skipjack.o osrng.o arc4.o
+ar: creating libcryptopp.a
+ranlib libcryptopp.a
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c test.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c bench1.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c bench2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c validat1.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c validat2.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c validat3.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c adhoc.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c datatest.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c regtest.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c fipsalgt.cpp
+g++ -DNDEBUG -g2 -O2 -fPIC -march=native -pipe -c dlltest.cpp
+g++ -o cryptest.exe -DNDEBUG -g2 -O2 -fPIC -march=native -pipe test.o bench1.o bench2.o validat1.o validat2.o validat3.o adhoc.o datatest.o regtest.o fipsalgt.o dlltest.o ./libcryptopp.a -pthread 

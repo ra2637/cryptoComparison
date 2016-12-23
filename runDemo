@@ -1,0 +1,22 @@
+#!/bin/bash
+if [ "$#" -ne 2 ]; then
+    echo "need parameters: filePath testTimes"
+    exit 1
+fi
+
+echo "---- install pkg ----"
+sudo apt-get install bc
+
+baseDir=`realpath .`
+cppLib="${baseDir}"/cryptoComparison_c++
+javaLib="${baseDir}"/cryptoComparison_java
+
+# run
+filePath=`realpath $1`
+echo "==== run crypto ===="
+cd "${cppLib}"
+./runDemo $filePath $2
+
+echo "==== run JCE, BC ===="
+cd "${javaLib}"
+./runDemo $filePath $2

@@ -1,0 +1,88 @@
+#!/bin/bash
+if [ "$#" -ne 2 ]; then
+    echo "need parameters: filePath testTimes"
+    exit 1
+fi
+
+echo "---- install pkg ----"
+sudo apt-get install bc
+
+baseDir=`realpath .`
+libDir="${baseDir}"/lib
+buildDir="${baseDir}"/build
+demoDir="${baseDir}"/demo
+manifestFile="${buildDir}"/Manifest.txt
+
+if [ ! -d "${buildDir}" ]; then
+  mkdir -p "${buildDir}" 
+fi
+if [ ! -d "${demoDir}" ]; then
+  mkdir "${demoDir}" 
+fi
+
+echo "---- copy lib ----"
+cp -r "${libDir}" "${demoDir}"
+
+echo "---- update jvm security policy lib ----"
+javaSecurityHome="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security"
+for JAR in local_policy.jar US_export_policy.jar
+do
+  if [ ! -f "${javaSecurityHome}/${JAR}.tmp" ]; then
+    echo "add .tmp extension to original ${JAR}"
+    sudo mv "${javaSecurityHome}/${JAR}" "${javaSecurityHome}/${JAR}.tmp"	
+  fi
+  echo "copy new ${JAR}"
+  sudo cp "${libDir}/UnlimitedJCEPolicyJDK8/${JAR}" "${javaSecurityHome}/"
+done
+
+echo "---- building src ----"
+find src/main -name *.java > "${buildDir}"/buildList
+javac -cp "lib/bcprov-jdk15on-155.jar" -d ./build @"${buildDir}"/buildList
+echo "Main-Class: yuntai.cryptoComparison.App" > "${manifestFile}"
+echo "Class-Path: lib/bcprov-jdk15on-155.jar" >> "${manifestFile}"
+echo "---- build done ----"
+
+jarFile="${demoDir}"/cryptoComparison.jar
+echo "---- building jar ----"
+cd ${buildDir}
+find "${buildDir}" -name *.class > "${buildDir}"/buildList
+jar cfm "${jarFile}" "${manifestFile}" yuntai oracleJCE
+cd "${baseDir}"
+echo ""
+
+# run 
+demoFile=$1
+testTimes=$2
+logDir="${demoDir}/log"
+if [ ! -d "${logDir}" ]; then
+  mkdir "${logDir}"
+else
+  rm "${logDir}"/*
+fi
+
+for LIB in JCE BC
+do
+  for ALGO in DES AES RSA DH SHA512 MD5
+  do
+    if [ "${ALGO}" == "DES" ] || [ "${ALGO}" == "AES" ]; then
+      for MODE in CBC OFB
+      do
+        echo "---- ${LIB} ${ALGO} ${MODE} ----"
+	for (( i=1; i<=${testTimes}; i++ ))
+	do
+          echo "-- run test ${i} --"
+          java -jar "${jarFile}" "${demoFile}" "${LIB}" "${ALGO}" "${MODE}" > "${logDir}/${LIB}_${ALGO}_${MODE}_${i}"
+	done
+	echo ""
+      done
+    else
+      echo "---- run ${LIB} ${ALGO} ----"
+      for (( i=1; i<=${testTimes}; i++ ))
+      do
+        echo "-- run test ${i} --"
+        java -jar "${jarFile}" "${demoFile}" "${LIB}" "${ALGO}" > "${logDir}/${LIB}_${ALGO}_${i}"
+      done
+      echo ""
+    fi
+  done
+done 

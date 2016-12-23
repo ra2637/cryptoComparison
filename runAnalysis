@@ -1,0 +1,82 @@
+#!/bin/bash
+
+baseDir=`realpath .`
+cppDir="${baseDir}"/cryptoComparison_c++
+javaDir="${baseDir}"/cryptoComparison_java
+logDir="${baseDir}"
+analysisDir="${baseDir}"/analysis
+if [ ! -d "${analysisDir}" ]; then
+  mkdir -p "${analysisDir}"
+else
+  rm "${analysisDir}"/*
+fi
+
+
+function analyze {
+  fileName=$1; shift;
+  fields=( "$@" )
+  fieldsNum=$#
+
+  i=0
+  fileCount=0
+  result=(0 0 0 0)
+  for file in `find ${logDir} -name ${fileName}_*` 
+  do
+    fileCount=$((fileCount + 1))
+    # Genkey:12 GenIV:0 Encrypt:33 Decrypt:23
+    i=0
+    while IFS=':' read -ra array; do
+      result["${i}"]=$((result[${i}] + array[1]))
+      i=$((i + 1))
+    done < "${file}"
+  done
+
+  echo "${fileName}" >> "${analysisDir}/All"
+  for (( i=0; i<$fieldsNum; i++ ))
+  do
+    sum="scale=2; ${result[$i]}/${fileCount}"
+    result["${i}"]=`bc <<< "${sum}"`
+    echo "${fields[$i]}: ${result[$i]} ms" >> "${analysisDir}/${fileName}"
+
+    echo "${fields[$i]}: ${result[$i]} ms" >> "${analysisDir}/All"
+  done
+  echo "" >> "${analysisDir}/All"
+}
+
+function runAnalyzeCpp {
+    logDir="${cppDir}"/demo/log
+    cd "${cppDir}"
+    analyze CryptoPP_DES_CBC Genkey GenIV Encrypt Decrypt
+    analyze CryptoPP_DES_OFB Genkey GenIV Encrypt Decrypt
+    analyze CryptoPP_AES_CBC Genkey GenIV Encrypt Decrypt
+    analyze CryptoPP_AES_OFB Genkey GenIV Encrypt Decrypt
+    analyze CryptoPP_RSA Genkey Encrypt Decrypt
+    analyze CryptoPP_DH Genkey GenIV Encrypt Decrypt
+    analyze CryptoPP_SHA512 Hash 
+    analyze CryptoPP_MD5 Hash
+}
+
+function runAnalyzeJava {
+    logDir="${javaDir}"/demo/log
+    cd "${javaDir}"
+    analyze JCE_DES_CBC Genkey GenIV Encrypt Decrypt
+    analyze JCE_DES_OFB Genkey GenIV Encrypt Decrypt
+    analyze JCE_AES_CBC Genkey GenIV Encrypt Decrypt
+    analyze JCE_AES_OFB Genkey GenIV Encrypt Decrypt
+    analyze JCE_RSA Genkey Encrypt Decrypt
+    analyze JCE_DH Genkey GenIV Encrypt Decrypt
+    analyze JCE_SHA512 Hash 
+    analyze JCE_MD5 Hash
+
+    analyze BC_DES_CBC Genkey GenIV Encrypt Decrypt
+    analyze BC_DES_OFB Genkey GenIV Encrypt Decrypt
+    analyze BC_AES_CBC Genkey GenIV Encrypt Decrypt
+    analyze BC_AES_OFB Genkey GenIV Encrypt Decrypt
+    analyze BC_RSA Genkey Encrypt Decrypt
+    analyze BC_DH Genkey GenIV Encrypt Decrypt
+    analyze BC_SHA512 Hash 
+   analyze BC_MD5 Hash
+}
+
+runAnalyzeCpp
+runAnalyzeJava
